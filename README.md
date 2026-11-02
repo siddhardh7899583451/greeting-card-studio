@@ -6,21 +6,22 @@ A complete, offline-first professional greeting card creation platform.
 
 ## Features
 
-- **80+ occasions** across Personal, Indian Festivals, International Holidays, Everyday Greetings, and Professional/Corporate categories
-- **Professionally designed templates** with unique styles (festive, elegant, minimalist, romantic, corporate, traditional, etc.)
-- **Interactive card editor**
-  - Add / edit text with fonts, sizes, colors, bold/italic/underline, alignment
-  - Upload personal photos
-  - Add stickers and shapes
-  - Change solid, gradient or image backgrounds
-  - Drag, resize (via properties), rotate, opacity, layer order
-  - Undo / Redo
-- **Offline message generator** with tones (heartfelt, funny, romantic, formal…) and languages (English, Hindi, Telugu, Tamil, Kannada)
-- **Standard formats**: Square, Portrait, Landscape, Story, 5×7", A6
-- **Export**: PNG, JPEG, PDF, high-resolution print-ready PDF
-- **Save & manage designs** in browser localStorage
-- **Dark / Light theme**
-- **Responsive** layout
+* **80+ occasions** across Personal, Indian Festivals, International Holidays, Everyday Greetings, and Professional/Corporate categories
+* **Professionally designed templates** with unique styles (festive, elegant, minimalist, romantic, corporate, traditional, etc.)
+* **Interactive card editor**
+
+  * Add / edit text with fonts, sizes, colors, bold/italic/underline, alignment
+  * Upload personal photos
+  * Add stickers and shapes
+  * Change solid, gradient or image backgrounds
+  * Drag, resize (via properties), rotate, opacity, layer order
+  * Undo / Redo
+* **Offline message generator** with tones (heartfelt, funny, romantic, formal…) and languages (English, Hindi, Telugu, Tamil, Kannada)
+* **Standard formats**: Square, Portrait, Landscape, Story, 5×7", A6
+* **Export**: PNG, JPEG, PDF, high-resolution print-ready PDF
+* **Save \& manage designs** in browser localStorage
+* **Dark / Light theme**
+* **Responsive** layout
 
 No paid AI API or backend server is required for core card creation and export.
 
@@ -61,13 +62,10 @@ greeting-card-studio/
 │   ├── styles.css          # Professional UI styles
 │   ├── data.js             # Occasions, templates, messages
 │   ├── app.js              # Editor + app logic
-│   └── src/                # Original TypeScript data modules (reference)
-├── backend/                # Placeholder for future server features
-├── data/                   # Additional data storage
 ├── docs/
 ├── scripts/
 ├── README.md
-└── START_HERE.md
+└── START\_HERE.md
 ```
 
 ## Usage Guide
@@ -89,3 +87,4 @@ Chrome, Edge, Firefox (latest versions). Best experience on desktop.
 ## License
 
 This project is provided as a complete rewrite for personal and educational use.
+
