@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greeting Card Studio – Create Beautiful Cards for Every Occasion</title>
+  <meta name="description" content="Professional offline greeting card generator. Create personalized cards for birthdays, festivals, corporate events and more." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="app">
+    <nav class="navbar" id="navbar">
+      <div class="nav-brand" onclick="App.showPage('home')">
+        <span class="logo-icon">🎴</span>
+        <span class="logo-text">Greeting Card Studio</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <button class="nav-link active" data-page="home" onclick="App.showPage('home')">Home</button>
+        <button class="nav-link" data-page="occasions" onclick="App.showPage('occasions')">Occasions</button>
+        <button class="nav-link" data-page="templates" onclick="App.showPage('templates')">Templates</button>
+        <button class="nav-link" data-page="create" onclick="App.showPage('create')">Create Card</button>
+        <button class="nav-link" data-page="designs" onclick="App.showPage('designs')">My Designs</button>
+        <button class="nav-link" data-page="about" onclick="App.showPage('about')">About</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode" onclick="App.toggleTheme()">🌙</button>
+      <button class="nav-menu-btn" id="menuBtn" onclick="App.toggleMobileMenu()">☰</button>
+    </nav>
+
+    <main id="main">
+      <section id="page-home" class="page active">
+        <header class="hero">
+          <div class="hero-content">
+            <h1>Create Beautiful Greeting Cards<br>for Every Occasion</h1>
+            <p class="hero-sub">Professional templates • Full editor • Offline ready • PNG, JPEG & PDF export</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary btn-lg" onclick="App.startCreate()">Create Your Card</button>
+              <button class="btn btn-outline btn-lg" onclick="App.showPage('occasions')">Browse Occasions</button>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="floating-card c1">🎂 Happy Birthday!</div>
+            <div class="floating-card c2">🪔 Happy Diwali</div>
+            <div class="floating-card c3">❤️ Happy Valentine's</div>
+          </div>
+        </header>
+        <section class="section">
+          <h2 class="section-title">Popular Categories</h2>
+          <div class="category-grid" id="homeCategories"></div>
+        </section>
+        <section class="section alt">
+          <h2 class="section-title">Featured Templates</h2>
+          <div class="template-grid" id="homeTemplates"></div>
+        </section>
+        <section class="section">
+          <h2 class="section-title">How It Works</h2>
+          <div class="steps">
+            <div class="step"><span class="step-num">1</span><h3>Choose Occasion</h3><p>Pick from 80+ occasions or create a custom one.</p></div>
+            <div class="step"><span class="step-num">2</span><h3>Select Template</h3><p>Start with a professional design or a blank canvas.</p></div>
+            <div class="step"><span class="step-num">3</span><h3>Customize</h3><p>Edit text, colors, photos, stickers and layout.</p></div>
+            <div class="step"><span class="step-num">4</span><h3>Download & Share</h3><p>Export as PNG, JPEG or print-ready PDF.</p></div>
+          </div>
+        </section>
+      </section>
+
+      <section id="page-occasions" class="page">
+        <div class="page-header">
+          <h1>Occasions</h1>
+          <div class="search-bar">
+            <input type="search" id="occasionSearch" placeholder="Search occasions..." oninput="App.filterOccasions()" />
+          </div>
+        </div>
+        <div class="filter-chips" id="occasionFilters"></div>
+        <div class="occasion-grid" id="occasionGrid"></div>
+      </section>
+
+      <section id="page-templates" class="page">
+        <div class="page-header">
+          <h1>Template Gallery</h1>
+          <div class="search-bar">
+            <input type="search" id="templateSearch" placeholder="Search templates..." oninput="App.filterTemplates()" />
+          </div>
+        </div>
+        <div class="filter-row">
+          <select id="templateOccasionFilter" onchange="App.filterTemplates()"><option value="">All Occasions</option></select>
+          <select id="templateStyleFilter" onchange="App.filterTemplates()">
+            <option value="">All Styles</option>
+            <option value="minimalist">Minimalist</option>
+            <option value="modern">Modern</option>
+            <option value="elegant">Elegant</option>
+            <option value="luxury">Luxury</option>
+            <option value="floral">Floral</option>
+            <option value="festive">Festive</option>
+            <option value="cute">Cute</option>
+            <option value="romantic">Romantic</option>
+            <option value="professional">Professional</option>
+            <option value="corporate">Corporate</option>
+            <option value="traditional">Traditional</option>
+            <option value="gradient">Gradient</option>
+          </select>
+        </div>
+        <div class="template-grid" id="templateGrid"></div>
+      </section>
+
+      <section id="page-create" class="page">
+        <div class="editor-layout">
+          <aside class="editor-sidebar left">
+            <div class="sidebar-tabs">
+              <button class="tab active" data-tab="setup" onclick="App.switchTab('setup')">Setup</button>
+              <button class="tab" data-tab="text" onclick="App.switchTab('text')">Text</button>
+              <button class="tab" data-tab="elements" onclick="App.switchTab('elements')">Elements</button>
+              <button class="tab" data-tab="bg" onclick="App.switchTab('bg')">Background</button>
+              <button class="tab" data-tab="message" onclick="App.switchTab('message')">Message</button>
+            </div>
+            <div class="tab-panels">
+              <div id="tab-setup" class="tab-panel active">
+                <label>Occasion</label>
+                <select id="selOccasion" onchange="App.onOccasionChange()"></select>
+                <label>Card Format</label>
+                <select id="selFormat" onchange="App.onFormatChange()"></select>
+                <label>Template</label>
+                <div class="mini-template-list" id="miniTemplates"></div>
+                <button class="btn btn-outline btn-block" onclick="App.startBlank()">Start Blank Canvas</button>
+              </div>
+              <div id="tab-text" class="tab-panel">
+                <button class="btn btn-primary btn-block" onclick="App.addText()">+ Add Text</button>
+                <label>Font</label>
+                <select id="propFont" onchange="App.updateSelectedProp('fontFamily', this.value)">
+                  <option>Arial</option><option>Georgia</option><option>Times New Roman</option>
+                  <option>Verdana</option><option>Courier New</option><option>Comic Sans MS</option>
+                  <option>Impact</option><option>Playfair Display</option>
+                </select>
+                <label>Size <span id="fontSizeVal">32</span>px</label>
+                <input type="range" id="propFontSize" min="12" max="120" value="32" oninput="App.updateSelectedProp('fontSize', +this.value); document.getElementById('fontSizeVal').textContent=this.value" />
+                <label>Color</label>
+                <input type="color" id="propColor" value="#333333" oninput="App.updateSelectedProp('fill', this.value)" />
+                <div class="btn-row">
+                  <button class="btn btn-sm" onclick="App.toggleStyle('fontWeight','bold')">B</button>
+                  <button class="btn btn-sm" onclick="App.toggleStyle('fontStyle','italic')">I</button>
+                  <button class="btn btn-sm" onclick="App.toggleStyle('textDecoration','underline')">U</button>
+                </div>
+                <label>Align</label>
+                <div class="btn-row">
+                  <button class="btn btn-sm" onclick="App.updateSelectedProp('textAlign','left')">Left</button>
+                  <button class="btn btn-sm" onclick="App.updateSelectedProp('textAlign','center')">Center</button>
+                  <button class="btn btn-sm" onclick="App.updateSelectedProp('textAlign','right')">Right</button>
+                </div>
+              </div>
+              <div id="tab-elements" class="tab-panel">
+                <button class="btn btn-primary btn-block" onclick="document.getElementById('photoInput').click()">📷 Upload Photo</button>
+                <input type="file" id="photoInput" accept="image/*" hidden onchange="App.addPhoto(event)" />
+                <label>Stickers</label>
+                <div class="sticker-grid" id="stickerGrid"></div>
+                <label>Shapes</label>
+                <div class="btn-row">
+                  <button class="btn btn-sm" onclick="App.addShape('rect')">Rectangle</button>
+                  <button class="btn btn-sm" onclick="App.addShape('circle')">Circle</button>
+                </div>
+              </div>
+              <div id="tab-bg" class="tab-panel">
+                <label>Solid / Gradient</label>
+                <div class="bg-presets" id="bgPresets"></div>
+                <label>Custom Color</label>
+                <input type="color" id="bgColor" value="#ffffff" oninput="App.setBackground(this.value)" />
+                <button class="btn btn-outline btn-block" onclick="document.getElementById('bgImageInput').click()">Upload Background Image</button>
+                <input type="file" id="bgImageInput" accept="image/*" hidden onchange="App.setBackgroundImage(event)" />
+              </div>
+              <div id="tab-message" class="tab-panel">
+                <label>Tone</label>
+                <select id="msgTone">
+                  <option value="heartfelt">Heartfelt</option>
+                  <option value="funny">Funny</option>
+                  <option value="romantic">Romantic</option>
+                  <option value="friendly">Friendly</option>
+                  <option value="formal">Formal</option>
+                  <option value="professional">Professional</option>
+                  <option value="inspirational">Inspirational</option>
+                  <option value="simple">Simple</option>
+                  <option value="traditional">Traditional</option>
+                </select>
+                <label>Language</label>
+                <select id="msgLang">
+                  <option value="en">English</option>
+                  <option value="hi">Hindi (हिन्दी)</option>
+                  <option value="te">Telugu (తెలుగు)</option>
+                  <option value="ta">Tamil (தமிழ்)</option>
+                  <option value="kn">Kannada (ಕನ್ನಡ)</option>
+                </select>
+                <label>Recipient Name (optional)</label>
+                <input type="text" id="msgRecipient" placeholder="e.g. Priya" />
+                <button class="btn btn-primary btn-block" onclick="App.generateMessage()">Generate Message</button>
+                <button class="btn btn-outline btn-block" onclick="App.generateMessage()">Regenerate</button>
+                <textarea id="msgPreview" rows="6" placeholder="Generated message will appear here..."></textarea>
+                <button class="btn btn-sm btn-block" onclick="App.insertMessage()">Insert into Card</button>
+              </div>
+            </div>
+          </aside>
+
+          <div class="editor-canvas-wrap">
+            <div class="editor-toolbar">
+              <button class="btn btn-sm" onclick="App.undo()" title="Undo">↶ Undo</button>
+              <button class="btn btn-sm" onclick="App.redo()" title="Redo">↷ Redo</button>
+              <button class="btn btn-sm" onclick="App.duplicateSelected()">Duplicate</button>
+              <button class="btn btn-sm" onclick="App.deleteSelected()">Delete</button>
+              <button class="btn btn-sm" onclick="App.bringForward()">↑ Front</button>
+              <button class="btn btn-sm" onclick="App.sendBackward()">↓ Back</button>
+              <span class="toolbar-spacer"></span>
+              <button class="btn btn-sm" onclick="App.zoom(-0.1)">−</button>
+              <span id="zoomLabel">100%</span>
+              <button class="btn btn-sm" onclick="App.zoom(0.1)">+</button>
+              <button class="btn btn-sm" onclick="App.saveDesign()">💾 Save</button>
+              <button class="btn btn-primary btn-sm" onclick="App.openExport()">Download</button>
+            </div>
+            <div class="canvas-viewport" id="canvasViewport">
+              <div id="cardCanvas" class="card-canvas" style="width:1080px;height:1350px;"></div>
+            </div>
+          </div>
+
+          <aside class="editor-sidebar right" id="propsPanel">
+            <h3>Element Properties</h3>
+            <div id="propsContent">
+              <p class="muted">Select an element on the card to edit its properties.</p>
+            </div>
+            <div class="props-actions">
+              <label>Opacity <span id="opacityVal">100</span>%</label>
+              <input type="range" id="propOpacity" min="10" max="100" value="100"
+                oninput="App.updateSelectedProp('opacity', this.value/100); document.getElementById('opacityVal').textContent=this.value" />
+              <label>Rotation <span id="rotVal">0</span>°</label>
+              <input type="range" id="propRotation" min="-180" max="180" value="0"
+                oninput="App.updateSelectedProp('rotation', +this.value); document.getElementById('rotVal').textContent=this.value" />
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="page-designs" class="page">
+        <div class="page-header">
+          <h1>My Designs</h1>
+          <button class="btn btn-primary" onclick="App.startCreate()">+ New Card</button>
+        </div>
+        <div class="designs-grid" id="designsGrid">
+          <p class="empty-state">No saved designs yet. Create your first card!</p>
+        </div>
+      </section>
+
+      <section id="page-about" class="page">
+        <div class="about-content">
+          <h1>About Greeting Card Studio</h1>
+          <p>Greeting Card Studio is a complete offline-first application for creating professional personalized greeting cards.</p>
+          <h2>Features</h2>
+          <ul>
+            <li>80+ occasions across personal, Indian festivals, international holidays, everyday and corporate categories</li>
+            <li>Professionally designed templates with multiple styles</li>
+            <li>Interactive editor with text, photos, stickers and shapes</li>
+            <li>Offline message generator with multiple tones and languages</li>
+            <li>Standard digital and print formats</li>
+            <li>Export to PNG, JPEG and PDF</li>
+            <li>Save, reopen and manage your designs locally</li>
+            <li>Works without any paid API or internet for core creation</li>
+          </ul>
+          <h2>How to run</h2>
+          <p>Simply open <code>index.html</code> in a modern browser (Chrome, Edge, Firefox). No server required for basic use.</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal" id="exportModal">
+      <div class="modal-content">
+        <h2>Download Card</h2>
+        <p>Choose export format:</p>
+        <div class="export-options">
+          <button class="btn btn-primary" onclick="App.doExport('png')">PNG</button>
+          <button class="btn btn-primary" onclick="App.doExport('jpeg')">JPEG</button>
+          <button class="btn btn-primary" onclick="App.doExport('pdf')">PDF</button>
+          <button class="btn btn-outline" onclick="App.doExport('pdf-print')">Print-ready PDF</button>
+        </div>
+        <button class="btn btn-text" onclick="App.closeExport()">Cancel</button>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
